@@ -1,0 +1,38 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+
+# Virtual environment
+venv/
+env/
+
+# Jupyter and logs (if any)
+*.ipynb
+*.log
+
+# Data files
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.json
+*.db
+
+# Model weights and saved objects
+*.pth
+*.pt
+*.joblib
+*.sav
+
+# VSCode settings (optional)
+.vscode/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Environment variables (if you use them)
+.env
