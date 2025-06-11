@@ -1,78 +1,114 @@
-.container {
-  max-width: 600px;
-  margin: 2rem auto;
+/* frontend/app/HomePage.module.css */
+
+:root {
+  --bg: #f5f7fa;
+  --card: #ffffff;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --text: #333;
+  --muted: #666;
+  --error: #dc2626;
+  --success: #16a34a;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
   padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
   text-align: center;
-  color: #333333;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+  font-size: 2rem;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  gap: 1.25rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1rem;
 }
 
-.formGroup {
+.field {
   display: flex;
   flex-direction: column;
 }
 
-.label {
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #555555;
+.field label {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--muted);
 }
 
-.select,
-.input {
-  padding: 0.75rem;
-  border: 1px solid #cccccc;
-  border-radius: 8px;
+.field select,
+.field input {
+  padding: 0.75rem 1rem;
   font-size: 1rem;
-  transition: border-color 0.3s;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  transition: border-color 0.2s;
 }
 
-.select:focus,
-.input:focus {
-  border-color: #0070f3;
+.field select:focus,
+.field input:focus {
   outline: none;
+  border-color: var(--primary);
 }
 
 .button {
-  padding: 0.75rem;
-  background-color: #0070f3;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  margin-top: 0.5rem;
+  padding: 0.75rem 0;
+  background: var(--primary);
+  color: #fff;
+  font-size: 1.1rem;
   font-weight: 600;
+  border: none;
+  border-radius: 0.75rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.2s, transform 0.1s;
 }
 
 .button:hover {
-  background-color: #005bb5;
+  background: var(--primary-hover);
 }
 
-.error {
-  margin-top: 1rem;
-  color: #ff4d4f;
-  text-align: center;
+.button:active {
+  transform: scale(0.98);
 }
 
-.result {
+.messageError,
+.messageSuccess {
   margin-top: 1rem;
-  color: #52c41a;
-  font-weight: 600;
-  text-align: center;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.messageError {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--error);
+}
+
+.messageSuccess {
+  background: rgba(22, 163, 74, 0.1);
+  color: var(--success);
 }

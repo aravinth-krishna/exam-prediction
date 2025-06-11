@@ -16,7 +16,7 @@ criterion = nn.MSELoss()
 optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
 # Training loop
-for epoch in range(1, 51):
+for epoch in range(1, 1000):
     model.train()
     for xb, yb in loader:
         preds = model(xb)
@@ -24,7 +24,7 @@ for epoch in range(1, 51):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-    print(f"Epoch {epoch}/50 — Loss: {loss.item():.4f}")
+    print(f"Epoch {epoch}/1000 — Loss: {loss.item():.4f}")
 
 # Save weights
 torch.save(model.state_dict(), "exam_predictor_weights.pth")
