@@ -1,4 +1,6 @@
+// frontend/app/page.tsx
 "use client";
+
 import { useState, ChangeEvent, FormEvent } from "react";
 import styles from "./HomePage.module.css";
 
@@ -39,16 +41,27 @@ export default function HomePage() {
     setLoading(true);
     setError(null);
     setResult(null);
+
     try {
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      // Generate a realistic random math score between 20 and 100
-      const min = 20;
-      const max = 100;
-      const randomScore = Math.random() * (max - min) + min;
-      setResult(parseFloat(randomScore.toFixed(2)));
-    } catch (err: any) {
-      setError(err.message || "Unknown error");
+      const res = await fetch("http://localhost:8000/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || res.statusText);
+      }
+
+      const data = (await res.json()) as { predicted_score: number };
+      setResult(data.predicted_score);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Failed to fetch prediction");
+      }
     } finally {
       setLoading(false);
     }
@@ -73,6 +86,7 @@ export default function HomePage() {
             <option value="male">Male</option>
           </select>
         </div>
+
         <div className={styles.formGroup}>
           <label htmlFor="race_ethnicity" className={styles.label}>
             Race/Ethnicity:
@@ -91,6 +105,7 @@ export default function HomePage() {
             <option value="group E">Group E</option>
           </select>
         </div>
+
         <div className={styles.formGroup}>
           <label htmlFor="parental_level_of_education" className={styles.label}>
             Parental Education:
@@ -110,6 +125,7 @@ export default function HomePage() {
             <option value="master's degree">Master&apos;s Degree</option>
           </select>
         </div>
+
         <div className={styles.formGroup}>
           <label htmlFor="lunch" className={styles.label}>
             Lunch:
@@ -125,6 +141,7 @@ export default function HomePage() {
             <option value="free/reduced">Free/Reduced</option>
           </select>
         </div>
+
         <div className={styles.formGroup}>
           <label htmlFor="test_preparation_course" className={styles.label}>
             Test Preparation:
@@ -140,6 +157,7 @@ export default function HomePage() {
             <option value="completed">Completed</option>
           </select>
         </div>
+
         <div className={styles.formGroup}>
           <label htmlFor="reading_score" className={styles.label}>
             Reading Score:
@@ -156,6 +174,7 @@ export default function HomePage() {
             required
           />
         </div>
+
         <div className={styles.formGroup}>
           <label htmlFor="writing_score" className={styles.label}>
             Writing Score:
@@ -172,10 +191,12 @@ export default function HomePage() {
             required
           />
         </div>
+
         <button type="submit" disabled={loading} className={styles.button}>
           {loading ? "Predicting..." : "Predict"}
         </button>
       </form>
+
       {error && <p className={styles.error}>Error: {error}</p>}
       {result !== null && !error && (
         <p className={styles.result}>

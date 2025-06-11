@@ -6,7 +6,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 def load_and_preprocess(csv_path: str):
     df = pd.read_csv(csv_path)
     # Numeric features
-    X_num = df[['math score','reading score','writing score']].values
+    X_num = df[['reading score','writing score']].values
     # Categorical features
     X_cat = df[['gender','race/ethnicity','parental level of education',
                 'lunch','test preparation course']].values
